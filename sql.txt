@@ -1,0 +1,14 @@
+'select nd.billcode AS reim_status'+
+'FROM opitemrece op'+
+'  LEFT OUTER JOIN ovst o ON o.vn = op.vn'+
+'  LEFT OUTER JOIN patient p ON p.hn = op.hn'+
+'  LEFT OUTER JOIN pttype pt ON pt.pttype = o.pttype'+
+'  LEFT OUTER JOIN ptcardno pc ON pc.hn = o.hn  AND pc.cardtype = "'01'"'+
+'  LEFT OUTER JOIN income i ON i.income = op.income'+
+'  LEFT OUTER JOIN income_report2 i2 ON i2.group_id = i.group2'+
+'  LEFT OUTER JOIN drugitems d ON d.icode = op.icode'+
+'  LEFT OUTER JOIN nondrugitems nd ON nd.icode = op.icode'+
+'WHERE op.vn = "'631209074609'"'+
+'ORDER BY i2.group_id,'+
+'  op.income,'+
+'  op.item_no'
