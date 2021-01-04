@@ -10,25 +10,250 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Sriracha&display=swap" rel="stylesheet">
-    <title>Hello, world!</title>
+    <title>index4</title>
     <style>
-        [class*="col"] {
-            padding: 1rem;
-            background-color: #f5d3ff;
-            border: 2px solid #fff;
-            color: rgb(10, 10, 10);
-            text-align: center;
-        }
-
         body {
             font-family: 'Sriracha', cursive;
         }
     </style>
+
+
 </head>
+
+<script>
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        /*loop through a collection of all HTML elements:*/
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain atrribute:*/
+            file = elmnt.getAttribute("w3-include-html");
+            if (file) {
+                /*make an HTTP request using the attribute value as the file name:*/
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+                        if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                        /*remove the attribute, and call this function once more:*/
+                        elmnt.removeAttribute("w3-include-html");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                /*exit the function:*/
+                return;
+            }
+        }
+    };
+</script>
 
 <body>
 
-    
+    <div w3-include-html="./index3.html"></div>
+
+    <script>
+       // includeHTML();
+    </script>
+
+
+    <div class="container">
+        <center>
+            <h1>Gutters</h1>
+            <h2>กัทเตอร์</h2>
+        </center>
+        <hr>
+
+    </div>
+    <div class="container">
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+            <div class="col">
+                <div class="p-3 border bg-light">Row column</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-sm-6 col-md-8">.col-sm-6 .col-md-8</div>
+            <div class="col-6 col-md-4">.col-6 .col-md-4</div>
+        </div>
+        For example, <code>&lt;section&gt;</code> should be wrapped as inline.
+        <pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+                &lt;p&gt;And another line of sample text here...&lt;/p&gt;
+            </code>
+        </pre>
+        <var>y</var> = <var>m</var><var>x</var> + <var>b</var>
+        <BR></BR>
+        To switch directories, type <kbd>cd</kbd> followed by the name of the directory.<br>
+        To edit settings, press <kbd><kbd>ctrl</kbd> + <kbd>,</kbd></kbd><br>
+
+        <samp>This text is meant to be treated as sample output from a computer program. ทดสอบ </samp>
+        <p class="h1">h1. Bootstrap heading</p><br>
+        <h1>h1. Bootstrap heading</h1>
+        <h1 class="display-1">Display 1</h1>
+        <h1 class="display-2">Display 2</h1>
+        <h1 class="display-3">Display 3</h1>
+        <h1 class="display-4">Display 4</h1>
+        <h1 class="display-5">Display 5</h1>
+        <h1 class="display-6">Display 6</h1>
+
+        <p class="lead">
+            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus.
+        </p>
+
+        <p>You can use the mark tag to <mark>highlight</mark> text.</p>
+        <p><del>This line of text is meant to be treated as deleted text.</del></p>
+        <p><s>This line of text is meant to be treated as no longer accurate.</s></p>
+        <p><ins>This line of text is meant to be treated as an addition to the document.</ins></p>
+        <p><u>This line of text will render as underlined.</u></p>
+        <p><small>This line of text is meant to be treated as fine print.</small></p>
+        <p><strong>This line rendered as bold text.</strong></p>
+        <p><em>This line rendered as italicized text.</em></p>
+
+        <div class="text-decoration-underline">
+            <p><i>test ทดสอบ</i></p>
+            <p>test ทดสอบ</p>
+            <p>test ทดสอบ</p>
+            <p>test ทดสอบ</p>
+
+            <p><abbr title="ทดลองทำตัวให้คำแนะนำเมื่อชี้เม้าส์">ทดลองทำตัวให้คำแนะนำเมื่อชี้เม้าส์</abbr></p>
+            <p><abbr title="HyperText Markup Language" class="initialism">HTML</abbr></p>
+
+        </div>
+
+        <blockquote class="blockquote">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+        </blockquote>
+        <figure class="mark text-center">
+            <blockquote class="blockquote">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+            </figcaption>
+        </figure>
+
+        <figure class="text-center">
+            <blockquote class="blockquote">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+            </figcaption>
+        </figure>
+
+        <figure class="text-end">
+            <blockquote class="blockquote">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            </blockquote>
+            <figcaption class="blockquote-footer">
+                Someone famous in <cite title="Source Title">Source Title</cite>
+            </figcaption>
+        </figure>
+
+        <ul class="list-unstyled">
+            <li>Lorem ipsum dolor sit amet</li>
+            <li>Consectetur adipiscing elit</li>
+            <li>Integer molestie lorem at massa</li>
+            <li>Facilisis in pretium nisl aliquet</li>
+            <li>Nulla volutpat aliquam velit
+                <ul>
+                    <li>Phasellus iaculis neque</li>
+                    <li>Purus sodales ultricies</li>
+                    <li>Vestibulum laoreet porttitor sem</li>
+                    <li>Ac tristique libero volutpat at</li>
+                </ul>
+            </li>
+            <li>Faucibus porta lacus fringilla vel</li>
+            <li>Aenean sit amet erat nunc</li>
+            <li>Eget porttitor lorem</li>
+        </ul>
+
+        <ul class="list-inline">
+            <li class="list-inline-item">Lorem ipsum</li>
+            <li class="list-inline-item">Phasellus iaculis</li>
+            <li class="list-inline-item">Nulla volutpat</li>
+        </ul>
+
+        <dl class="row">
+            <dt class="col-sm-3">Description lists</dt>
+            <dd class="col-sm-9">A description list is perfect for defining terms.</dd>
+
+            <dt class="col-sm-3">Euismod</dt>
+            <dd class="col-sm-9">
+                <p>Vestibulum id ligula porta felis euismod semper eget lacinia odio sem nec elit.</p>
+                <p>Donec id elit non mi porta gravida at eget metus.</p>
+            </dd>
+
+            <dt class="col-sm-3">Malesuada porta</dt>
+            <dd class="col-sm-9">Etiam porta sem malesuada magna mollis euismod.</dd>
+
+            <dt class="col-sm-3 text-truncate">Truncated term is truncated</dt>
+            <dd class="col-sm-9">Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                massa justo sit amet risus.</dd>
+
+            <dt class="col-sm-3">Nesting</dt>
+            <dd class="col-sm-9">
+                <dl class="row">
+                    <dt class="col-sm-4">Nested definition list</dt>
+                    <dd class="col-sm-8">Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc.</dd>
+                </dl>
+            </dd>
+        </dl>
+
+        <hr>
+        <img src="./images/img1.jpg" class="img-thumbnail" alt="...">
+        <img src="./images/img1.jpg" class="rounded float-start" alt="...">
+        <img src="./images/img1.jpg" class="rounded float-end" alt="...">
+        <div class="text-center">
+            <img src="./images/img1.jpg" class="rounded" alt="...">
+            <img src="./images/img1.jpg" class="rounded mx-auto d-block" alt="...">
+
+        </div>
+
+
+
+
+        ​<picture>
+            <source srcset="./images/img1.jpg" type="image/svg+xml">
+            <img src="./images/img1.jpg" class="img-fluid img-thumbnail" alt="...">
+           
+        </picture>
+    </div>
+
+
+
+
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="js/bootstrap.bundle.min.js"></script>
