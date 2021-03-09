@@ -1,0 +1,53 @@
+
+        
+         
+
+         
+         
+         
+          
+
+
+
+
+          timeadd,Hr,Min,Sec,timeInt,timeMin,timeSec : Integer;
+ TimeWait :DateTime; 
+begin
+    timeadd:=0;
+    if (  DBPipeline['lab_items_code']=92 )then  //LDL
+    begin 
+         timeadd := 10;   //BUN //Creatinine   //Calcium   //Phosphorus
+    end else if ( (DBPipeline['lab_items_code']=77) or   //BUN
+                  (DBPipeline['lab_items_code']=78) or   //Creatinine
+                  (DBPipeline['lab_items_code']=276) or  //Calcium
+                  (DBPipeline['lab_items_code']=277)   //Phosphorus   
+    ) then
+    begin 
+        timeadd := 15
+    end ;
+        a:= TimeToStr(CurrentTime); 
+        //a:= '23:40:00' ;
+        a:=StringReplaceAll(a, ':', '', true); 
+        timeInt:= StrToInt(a) ;
+        timeMin:= (timeInt mod 10000);
+        timeSec:= (timeInt mod 100);
+        Hr:=  (timeInt / 10000);
+        Min:=  (timeMin / 100);
+       //Sec:=  (timeSec / 1);
+        Min:=Min+timeadd ;
+        Hr:=Hr+(Min/60);
+        Min:=Min mod 60;
+        
+        if (Hr>=24) then
+        Begin 
+          Hr:=Hr mod 24;
+          TimeWait :=EncodeTime(Hr, Min, 0, 0);
+          Label1.Text := 'เวลาที่จะรายงานผล : วันพรุ่งนี้  ';
+          Label2.Text := 'เวลา '+TimeToStr(TimeWait)+' น.' ;
+          //texttime :='เวลาที่จะรายงานผล : วันพรุ่งนี้ '+TimeToStr(TimeWait)+' น.';
+        end else begin
+          TimeWait :=EncodeTime(Hr, Min, 0, 0); 
+          Label1.Text := 'เวลาที่จะรายงานผล : '+TimeToStr(TimeWait)+' น.';
+          Label2.Visible := False ;
+          //texttime :='เวลาที่จะรายงานผล : '+TimeToStr(TimeWait)+' น.';
+        end;
