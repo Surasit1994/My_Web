@@ -8,24 +8,24 @@
     <script type="text/javascript" src='jquery-3.4.1.min.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script>
+        $(document).ready(function() {
+            $("button").click(function() {
+                $.get("call_dir2.php",{part_dir1:"uploads"}, function(data, status) {
+                    alert("Data: " + data + "\nStatus: " + status);
+                });
+            });
+        });
+    </script>
 
-    
 </head>
 
 <body>
 
-    <?php include 'call_dir.php' ?>
-    <button class="btn-success" value="uploads" onclick="myfcn(this.value)">Click</button>
+    
+    <button class="btn-success">Click</button>
     <p id="show1"></p>
-    <script>
-        function myfcn(a) {
-            console.log(a)
-            <?php $data_part = call_pic(a); ?>
-            var list_data = <?php echo $data_part; ?>
-            //console.log(list_data);
-            document.getElementById("show1").innerHTML = list_data;
-        }
-    </script>
+    
 
 </body>
 

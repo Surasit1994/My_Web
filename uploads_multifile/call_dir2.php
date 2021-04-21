@@ -1,12 +1,12 @@
-
 <script>
-    console.log("enter call_dir.php");
-</script>
+    console.log('<?php echo $_GET["part_dir1"]; ?>');
+</Script>
+
 <?php
 
-function call_pic($part_dir1)
-{
-    $part_dir = $part_dir1;
+function call_pic()
+{   //echo $_GET["part_dir1"];
+    $part_dir = $_GET['part_dir1'];
     //echo $_GET["part_data_from_link"];
     $dir = $part_dir;
     $list_dir = array();
@@ -32,8 +32,9 @@ function call_pic($part_dir1)
     // echo 'value form call pic!!!!!';
     //echo $part_dir;
      $js_list_dir = json_encode($list_dir);
+     //echo '<br>'.$js_list_dir;
      return $js_list_dir;
-     //echo $js_list_dir;
+     
 
     
    
