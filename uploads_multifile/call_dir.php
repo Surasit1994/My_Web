@@ -4,9 +4,9 @@
 </script>
 <?php
 
-function call_pic($get_part)
-{  // print($get_part);
-    $part_dir = $get_part;
+function call_pic()
+{
+    $part_dir = "uploads";
     //echo $_GET["part_data_from_link"];
     $dir = $part_dir;
     $list_dir = array();

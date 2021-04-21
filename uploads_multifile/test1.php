@@ -13,22 +13,17 @@
     <?php include 'call_dir.php' ?>
     <button class="btn-success" onclick="myfcn()">Click</button>
     <p id="show1"></p>
-    <div class="container" id="show_img1"></div>
     <script>
         function myfcn() {
-            <?php $data_part = call_pic('uploads/pic_1'); ?>
+            <?php $data_part= call_pic(); ?>
             var list_data = <?php echo $data_part; ?>
             //console.log(list_data);
-            document.getElementById("show1").innerHTML = list_data;
-            list_data.foreach(show_img);
+            document.getElementById("show1").innerHTML = list_data[1];
 
-            function show_img(item, index) {
-                console.log(item);
-                $('#show_img1').append('<img src="' + item + '" class="img-fluid" alt="..." ><br>');
-            }
+
         }
     </script>
-
+    <?php call_pic() ?>
 </body>
 
 </html>
