@@ -6,7 +6,7 @@
 
 function call_pic()
 {
-    $part_dir = "uploads";
+    $part_dir = "";
     //echo $_GET["part_data_from_link"];
     $dir = $part_dir;
     $list_dir = array();
