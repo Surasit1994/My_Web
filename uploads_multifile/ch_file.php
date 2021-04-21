@@ -36,52 +36,54 @@
   </style>
 </head>
 <script>
-              function myFunction() {
-                console.log(<?php call_pic(); ?>);
-                document.getElementById('test3').innerHTML = "<?php call_pic(); ?>">;
-              }
-            </script>
+  function myFunction() {
+    console.log(<?php call_pic(); ?>);
+    document.getElementById('test3').innerHTML = "<?php call_pic(); ?>" > ;
+  }
+</script>
+
 <body>
 
-<?php
-      function call_pic()
-      {
-        $dir = "uploads";
+  <?php
+  function call_pic()
+  {
+    $dir = "uploads";
 
-        // Open a directory, and read its contents
-        if (is_dir($dir)) {
-          if ($dh = opendir($dir)) {
-            $i = 0;
-            while (($file = readdir($dh)) !== false) {
-              //echo "filename:" . $file . "<br>";
+    // Open a directory, and read its contents
+    if (is_dir($dir)) {
+      if ($dh = opendir($dir)) {
+        $i = 0;
+        while (($file = readdir($dh)) !== false) {
+          //echo "filename:" . $file . "<br>";
 
 
-              if ($file == "." or $file == ".." or $file == "...") {
-                continue;
+          if ($file == "." or $file == ".." or $file == "...") {
+            continue;
+          } else {
+            $part_pic2 = "uploads/" . $file;
+            //echo $part_pic."<br>";
+  ?>
+            <script>
+              if (<?php echo $i ?> == 0) {
+                <?php $i = 1 ?>
+                $('#pic1').append('<img src=' + <?php echo  '"' . $part_pic2 . '"' ?> + ' class="d-block w-100 img-fluid" width:200px hight: auto>');
               } else {
-                $part_pic2 = "uploads/" . $file;
-                //echo $part_pic."<br>";
-      ?>
-                <script>
-                  if (<?php echo $i ?> == 0) {
-                    <?php $i = 1 ?>
-                    $('#pic1').append('<img src=' + <?php echo  '"' . $part_pic2 . '"' ?> + ' class="d-block w-100 img-fluid" width:200px hight: auto>');
-                  } else {
-                    $('#pic_2').append('<div class="carousel-item"><img src=' + <?php echo '"' . $part_pic2 . '"' ?> + ' class="d-block w-100  img-fluid" alt="..." ></div>');
+                $('#pic_2').append('<div class="carousel-item"><img src=' + <?php echo '"' . $part_pic2 . '"' ?> + ' class="d-block w-100  img-fluid" alt="..." ></div>');
 
-                  }
-                </script>
+              }
+            </script>
 
-      <?php
-              } //Close else;--------------------------
-            }
-            closedir($dh);
-          }
-        }echo 'value form call pic!!!!!';
+  <?php
+          } //Close else;--------------------------
+        }
+        closedir($dh);
       }
-      ?>
-      
-    
+    }
+    echo 'value form call pic!!!!!';
+  }
+  ?>
+
+
   <div class="container">
     <!---------------------------Image first page ----------------------------------------->
     <img src="./images/head-index.png" class="img-fluid" alt="Welcome">
@@ -132,12 +134,12 @@
         <div class="col-2">
           <div id="test2">
             <p id="test3">
-                  55555555
+              55555555
             </p>
 
           </div>
           <div id="list_folder_pic" class="container">
-          
+
             <?php
             echo '<br>';
             $dir = "uploads";
@@ -148,8 +150,6 @@
                 $i = 0;
                 while (($file = readdir($dh)) !== false) {
                   //echo "filename:" . $file . "<br>";
-
-
                   if ($file == "." or $file == ".." or $file == "...") {
                     continue;
                   } else {
@@ -164,7 +164,7 @@
               }
             }
             ?>
-            
+
           </div>
         </div>
         <div class="col-10">
@@ -197,7 +197,7 @@
 
 
 
-     
+
 
     </div>
 
