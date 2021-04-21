@@ -18,7 +18,7 @@
             <?php $data_part= call_pic(); ?>
             var list_data = <?php echo $data_part; ?>
             //console.log(list_data);
-            document.getElementById("show1").innerHTML = list_data[1];
+            document.getElementById("show1").innerHTML = list_data[0];
 
 
         }
