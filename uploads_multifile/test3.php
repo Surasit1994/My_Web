@@ -11,26 +11,47 @@
 
 <body>
 
-    <button class="btn-success" onclick="myfcn()">Click</button>
+    <button class="btn-success" onclick="myfcn2()">Click</button>
     <p id="show1"></p>
     <div class="container" id="show_img1"></div>
 
     <script>
+        /*
         function myfcn() {
             var xmlhttp = new XMLHttpRequest();
 
             xmlhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    
+
                     myObj = JSON.parse(this.responseText);
-                    document.getElementById("show1").innerHTML = myObj[0];
+                    document.getElementById("show1").innerHTML = myObj[2];
                 }
             };
             xmlhttp.open("GET", "call_dir.php", true);
             xmlhttp.send();
+            
+        } */
+    </script>
+    <script>
+        function myfcn2() {
+            $.ajax({
+                url: 'call_dir.php',
+                type: 'get', //หรือ post (ค่าเริ่มต้นเป็นแบบ get)
+                data: ['uploads'],
+                dataType: 'json', //หรือ json หรือ xml
+                success: function(response) {
+                    //callbackที่เตรียมไว้รันตอนเซิร์ฟเวอร์ตอบกลับมา
+                    for(var index = 0; index < response.length; index++) {
+					    var src = response[index];
+
+					    // Add img element in <div id='preview'>
+					    $('#show1').append('<img src="'+src+'" width="200px;" height="200px" alt="'+src+'">');
+						
+					}
+                }
+            });
         }
     </script>
-
 
 
 

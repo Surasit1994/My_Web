@@ -35,7 +35,12 @@
     }
   </style>
 </head>
-
+<script>
+  function myFunction() {
+    console.log(<?php call_pic(); ?>);
+    document.getElementById('test3').innerHTML = "<?php call_pic(); ?>" > ;
+  }
+</script>
 
 <body>
 
@@ -74,13 +79,9 @@
         closedir($dh);
       }
     }
+    echo 'value form call pic!!!!!';
   }
   ?>
-
-
-
-
-
 
 
   <div class="container">
@@ -131,30 +132,38 @@
     <div class="container " style="background-color: rgba(214, 246, 252, 0.836);">
       <div class="row justify-content-start">
         <div class="col-2">
-          <!----------------------------เรียกดูfolder เก็บรูปและส้ราง เมนู---------------------------------------------->
+          <div id="test2">
+            <p id="test3">
+              55555555
+            </p>
+
+          </div>
           <div id="list_folder_pic" class="container">
-            <script>
-              function myfcn2(data_part1) {
-                $.ajax({
-                  url: 'call_dir3.php',
-                  type: 'get', //หรือ post (ค่าเริ่มต้นเป็นแบบ get)
-                  data: { index_link : data_part1 },
-                  dataType: 'json', //หรือ json หรือ xml
-                  success: function(response) {
-                    //callbackที่เตรียมไว้รันตอนเซิร์ฟเวอร์ตอบกลับมา
-                    for (var index = 0; index < response.length; index++) {
-                      var src = response[index];
 
-                      // Add img element in <div id='preview'>
-                      //$('#show1').append(src+'<br>');
-                      $('#list_folder_pic').append('<button class="btn-success">' + src + '</button><br>');
-                    }
-                  }
-                });
+            <?php
+            echo '<br>';
+            $dir = "uploads";
+
+            // Open a directory, and read its contents
+            if (is_dir($dir)) {
+              if ($dh = opendir($dir)) {
+                $i = 0;
+                while (($file = readdir($dh)) !== false) {
+                  //echo "filename:" . $file . "<br>";
+                  if ($file == "." or $file == ".." or $file == "...") {
+                    continue;
+                  } else {
+                    $part_pic = "uploads/" . $file;
+
+                    echo '<button class="btn-sm btn-success"  onclick="myFunction()">' . $file . '</button><br>';
+                    //echo $part_pic."<br>";
+
+                  } //Close else;--------------------------
+                }
+                closedir($dh);
               }
-              window.onload = myfcn2("uploads/pic_1");
-            </script>
-
+            }
+            ?>
 
           </div>
         </div>
@@ -180,15 +189,23 @@
               </div>
             </div>
           </div>
-          <div class="row justify-content-center">
-            <div id="show_img_test" class="col-8">
-              <!---------------------------  photo slide  ------------------------------------->
 
-            </div>
-          </div>
         </div>
+
       </div>
+
+
+
+
+
+
     </div>
+
+
+
+
+
+
   </div>
   <!-----------------------------End----Body content------------------------------------------>
 

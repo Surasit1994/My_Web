@@ -7,6 +7,7 @@
     //echo $_GET["part_data_from_link"];
     $dir = $part_dir;
     $list_dir = array();
+    
     // Open a directory, and read its contents
     if (is_dir($dir)) {
         if ($dh = opendir($dir)) {
@@ -19,8 +20,10 @@
                     continue;
                 } else {
                     $part_pic = $dir . "/" . $file;
+                    
                     //echo $part_pic . "<br>";
-                    array_push($list_dir, $part_pic);
+                    //array_push($list_dir,["data_part"=>["file_name"=>$file],["part_dir"=>$part_pic]]]);
+                    array_push($list_dir,$file);
                 } //Close else;--------------------------
             }
             closedir($dh);

@@ -7,6 +7,7 @@
     //echo $_GET["part_data_from_link"];
     $dir = $part_dir;
     $list_dir = array();
+    
     // Open a directory, and read its contents
     if (is_dir($dir)) {
         if ($dh = opendir($dir)) {
@@ -18,9 +19,11 @@
                 if ($file == "." or $file == ".." or $file == "...") {
                     continue;
                 } else {
-                    $part_pic = $dir . "/" . $file;
+                    //$part_pic = $dir . "/" . $file;
+                    
                     //echo $part_pic . "<br>";
-                    array_push($list_dir, $part_pic);
+                    array_push($list_dir,$file);
+                   
                 } //Close else;--------------------------
             }
             closedir($dh);
@@ -38,7 +41,7 @@
     }
     else{
         $part_dir  = 'uploads';
-        echo call_dir($part_dir);
+        echo call_dir("Error");
     } 
     
     
