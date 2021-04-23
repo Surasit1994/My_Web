@@ -9,7 +9,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
-  
+
   <script>
     //-----------------ฟังค์ชั่นดึงข้อม฿ล part file จาก server--------------------
     function get1_part(data_part1) {
@@ -29,7 +29,7 @@
       //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
       for (var index = 0; index < response.length; index++) {
         var src = response[index];
-        $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary" value=' + part_first1 + '/' + src + ' onclick="load_img(this.value)">' + src + '</button><br>');
+        $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary fs-5" value=' + part_first1 + '/' + src + ' onclick="load_img(this.value)">' + src + '</button>');
       }
     }
     //--------------โหลดเมนู โฟล์เดอร์มาแสดง-------------------------
@@ -52,6 +52,8 @@
           if (state_pic == 0) {
             state_pic = 1
             $('#pic_all').remove();
+            $('#name_allumb').remove();
+            $('#text_header').append('<div class="container" id = "name_allumb"><p class="text-center text-lg fw-bold fs-4 text-primary" >' + part_dir.substr(8) + '</p></div>');
             $('#carouselExampleControlsNoTouching').append('<div id="pic_all" class="carousel-inner"></div>');
             $('#pic_all').append('<div id="pic1" class="carousel-item active"><img src=' + src + ' class="d-block w-100 img-fluid" width:200px hight: auto></div>');
           } else {
@@ -80,25 +82,36 @@
 */
     [id*="slide1"] {
       padding: .2rem;
-      background-color: #b3b3ff;
-      border: 2px solid #fff;
-      color: rgb(10, 10, 10);
-
-    }
-    [id*="main_div"],[id*="main_div2"] ,[id*="main_div3"] {
-      padding: 0.5rem;
-      background-color: #b3b3ff;
+      background-color: white;
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
-      
 
     }
+
+    [id*="main_div"] {
+
+
+      border: 2px solid #99d6ff;
+      color: rgb(10, 10, 10);
+
+
+    }
+
+    [id*="main_div2"],
+    [id*="main_div3"] {
+      padding: 0.5rem;
+
+      border: 2px solid #99d6ff;
+      color: rgb(10, 10, 10);
+
+
+    }
+
     [id*="foot"] {
       padding: 0.5rem;
-      background-color: #b3b3ff;
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
-      
+
 
     }
   </style>
@@ -107,7 +120,7 @@
 
 <body>
 
-  <div class="container-fluid">
+  <div class="container-lg">
     <!---------------------------Image first page ----------------------------------------->
     <img src="./images/head-index.png" class="img-fluid" alt="Welcome">
     <!---------------------------Menu navbar-------------------------------->
@@ -139,21 +152,31 @@
     </nav>
     <!------------------------------------Body content------------------------------------------>
     <div id="main_div" class="container-fluid " style="background-color: rgba(214, 246, 252, 0.836); ">
-      <div  class="row justify-content-start">
-        <div id = "main_div2" class="col-3">
+      <div class="row justify-content-start">
+        <div id="main_div2" class="col-3  border-end-0">
           <!----------------------------เรียกดูfolder เก็บรูปและส้ราง เมนู---------------------------------------------->
           <div class="container-fluid">
-            <div id="list_folder_pic" class="d-grid gap-10">
+            <div id="list_folder_pic" class="d-grid gap-2">
             </div>
           </div>
         </div>
         <!---------------------------Slide Show picture here ---------------------------------------->
-        <div id = "main_div3" class="col-8">
+        <div id="main_div3" class="col-9 border-start-0 " style="background-color:#ccf2ff">
+          <div class="row justify-content-center" style="text-align: center;">
+            <div class="container" id="text_header">
+              <p class="text-center text-lg fw-bold fs-4 text-primary">
+                ภาพกิจกรรมโรงพยาบาลรัตนวาปี
+              </p>
+              <div class="container" id="name_allumb"></div>
+            </div>
+          </div>
           <div class="row justify-content-center">
-            <div id="slide1" class="col-9">
+            <div id="slide1" class="col-9 ">
               <!---------------------------  photo slide  ------------------------------------->
+
               <div id="test1" style="text-align: center;">
-                <div id="carouselExampleControlsNoTouching" class="carousel slide " data-bs-touch="false" data-bs-interval="false">
+
+                <div id="carouselExampleControlsNoTouching" class="carousel slide border border-primary" data-bs-touch="false" data-bs-interval="false">
                   <!---------------div สำหรับ ใส่รูป ---------------------------------------->
                   <div id="pic_all" class="carousel-inner"></div>
                   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
@@ -168,12 +191,6 @@
               </div>
             </div>
           </div>
-          <div class="row justify-content-center">
-            <div id="show_img_test" class="col-8">
-              <!---------------------------  photo slide  ------------------------------------->
-
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -184,11 +201,11 @@
     <!-- Footer -->
     <footer class=" text-center text-lg-start">
       <!-- Grid container -->
-      <div id="foot" class="container-fluid p-4" style="background-color: rgba(214, 246, 252, 0.836);">
+      <div id="foot" class="container-fluid p-4 border-top-0" style="background-color: rgba(214, 246, 252, 0.836);">
         <!--Grid row-->
-        <div  class="row">
+        <div class="row">
           <!--Grid column-->
-          <div  class="col-lg-6 col-md-12 mb-4 mb-md-0">
+          <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
             <h5>ติดต่อ</h5>
             <p>
               ช่องทางการรับเรื่องร้องเรื่อง <br>
