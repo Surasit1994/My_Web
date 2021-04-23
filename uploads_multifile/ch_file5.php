@@ -107,7 +107,7 @@
 
 <body>
 
-  <div class="container">
+  <div class="container-fluid">
     <!---------------------------Image first page ----------------------------------------->
     <img src="./images/head-index.png" class="img-fluid" alt="Welcome">
     <!---------------------------Menu navbar-------------------------------->
@@ -138,7 +138,7 @@
       </div>
     </nav>
     <!------------------------------------Body content------------------------------------------>
-    <div id="main_div" class="container " style="background-color: rgba(214, 246, 252, 0.836); ">
+    <div id="main_div" class="container-fluid " style="background-color: rgba(214, 246, 252, 0.836); ">
       <div  class="row justify-content-start">
         <div id = "main_div2" class="col-3">
           <!----------------------------เรียกดูfolder เก็บรูปและส้ราง เมนู---------------------------------------------->
@@ -184,7 +184,7 @@
     <!-- Footer -->
     <footer class=" text-center text-lg-start">
       <!-- Grid container -->
-      <div id="foot" class="container p-4" style="background-color: rgba(214, 246, 252, 0.836);">
+      <div id="foot" class="container-fluid p-4" style="background-color: rgba(214, 246, 252, 0.836);">
         <!--Grid row-->
         <div  class="row">
           <!--Grid column-->
