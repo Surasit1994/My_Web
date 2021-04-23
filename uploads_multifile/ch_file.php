@@ -39,50 +39,6 @@
 
 <body>
 
-  <?php
-  function call_pic()
-  {
-    $dir = "uploads";
-
-    // Open a directory, and read its contents
-    if (is_dir($dir)) {
-      if ($dh = opendir($dir)) {
-        $i = 0;
-        while (($file = readdir($dh)) !== false) {
-          //echo "filename:" . $file . "<br>";
-
-
-          if ($file == "." or $file == ".." or $file == "...") {
-            continue;
-          } else {
-            $part_pic2 = "uploads/" . $file;
-            //echo $part_pic."<br>";
-  ?>
-            <script>
-              if (<?php echo $i ?> == 0) {
-                <?php $i = 1 ?>
-                $('#pic1').append('<img src=' + <?php echo  '"' . $part_pic2 . '"' ?> + ' class="d-block w-100 img-fluid" width:200px hight: auto>');
-              } else {
-                $('#pic_2').append('<div class="carousel-item"><img src=' + <?php echo '"' . $part_pic2 . '"' ?> + ' class="d-block w-100  img-fluid" alt="..." ></div>');
-
-              }
-            </script>
-
-  <?php
-          } //Close else;--------------------------
-        }
-        closedir($dh);
-      }
-    }
-  }
-  ?>
-
-
-
-
-
-
-
   <div class="container">
     <!---------------------------Image first page ----------------------------------------->
     <img src="./images/head-index.png" class="img-fluid" alt="Welcome">
@@ -134,25 +90,69 @@
           <!----------------------------เรียกดูfolder เก็บรูปและส้ราง เมนู---------------------------------------------->
           <div id="list_folder_pic" class="container">
             <script>
-              function myfcn2(data_part1) {
+              var state_load = 0;
+              var state_pic = 0;
+              var part_file = "";
+
+              //-----------------ฟังค์ชั่นดึงข้อม฿ล part file จาก server--------------------
+              function get1_part(data_part1, return_data) {
                 $.ajax({
                   url: 'call_dir3.php',
                   type: 'get', //หรือ post (ค่าเริ่มต้นเป็นแบบ get)
-                  data: { index_link : data_part1 },
+                  data: {
+                    index_link: data_part1
+                  },
                   dataType: 'json', //หรือ json หรือ xml
+                  //callbackที่เตรียมไว้รันตอนเซิร์ฟเวอร์ตอบกลับมา
                   success: function(response) {
-                    //callbackที่เตรียมไว้รันตอนเซิร์ฟเวอร์ตอบกลับมา
-                    for (var index = 0; index < response.length; index++) {
-                      var src = response[index];
+                    //part_file = response
+                    return_data(response);
 
-                      // Add img element in <div id='preview'>
-                      //$('#show1').append(src+'<br>');
-                      $('#list_folder_pic').append('<button class="btn-success">' + src + '</button><br>');
-                    }
                   }
                 });
               }
-              window.onload = myfcn2("uploads/pic_1");
+
+              function load_menu(part_recieve) {
+
+                response = part_recieve
+                //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
+                for (var index = 0; index < response.length; index++) {
+                  var src = response[index];
+                  $('#list_folder_pic').append('<button class="btn-primary" value="test">' + src + '</button><br>');
+                }
+
+
+              }
+
+              function first_load_all() {
+                get1_part("uploads", function(output) {
+                  part_file = response
+                  console.log("return from fisrt_load_all part_file: " + part_file)
+                  console.log("return from fisrt_load_all response: " + response)
+                });
+
+
+
+                load_menu(part_file)
+              }
+
+              /*
+              for (var index = 0; index < response.length; index++) {
+                var src = response[index];
+
+              }
+              if (state_pic == 0) {
+                state_pic = 1
+                console.log("state_pic=0 : " + src)
+                $('#pic1').append('<img src=' + src + ' class="d-block w-100 img-fluid" width:200px hight: auto>');
+              } else {
+                $('#pic_2').append('<div class="carousel-item"><img src=' + src + ' class="d-block w-100  img-fluid" alt="..." ></div>');
+              }
+              */
+
+              console.log("before : " + part_file)
+              window.onload = first_load_all();
+              console.log("after : " + part_file)
             </script>
 
 
