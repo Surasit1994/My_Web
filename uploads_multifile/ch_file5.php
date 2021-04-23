@@ -65,7 +65,7 @@
   <style type="text/css">
     body {
       font-family: 'Sarabun', sans-serif;
-      //background-color: rgba(225, 242, 245, 0.836);
+      /*background-color: rgba(225, 242, 245, 0.836);*/
 
     }
 
