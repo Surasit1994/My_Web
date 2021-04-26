@@ -29,7 +29,7 @@
       //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
       for (var index = 0; index < response.length; index++) {
         var src = response[index];
-        $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary fs-5" value=' + part_first1 + '/' + src + ' onclick="load_img(this.value)">' + src + '</button>');
+        $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary " value=' + part_first1 + '/' + src + ' onclick="load_img(this.value)">' + src + '</button>');
       }
     }
     //--------------โหลดเมนู โฟล์เดอร์มาแสดง-------------------------
@@ -43,22 +43,28 @@
     }
 
     function load_img(part_dir) {
+
       var getfile_name = get1_part(part_dir);
       //alert(part_dir);
       var state_pic = 0;
       getfile_name.done(function(file_name) {
         for (var index = 0; index < file_name.length; index++) {
           var src = part_dir + '/' + file_name[index];
+
           if (state_pic == 0) {
             state_pic = 1
             $('#pic_all').remove();
             $('#name_allumb').remove();
-            $('#text_header').append('<div class="container" id = "name_allumb"><p class="text-center text-lg fw-bold fs-4 text-primary" >' + part_dir.substr(8) + '</p></div>');
+            $('#album').remove();
+            $('#text_header').append('<div class="container" id = "name_allumb"><p class="text-center text-lg fw-bold fs-6 text-primary" >' + part_dir.substr(8) + '</p></div>');
             $('#carouselExampleControlsNoTouching').append('<div id="pic_all" class="carousel-inner"></div>');
             $('#pic_all').append('<div id="pic1" class="carousel-item active"><img src=' + src + ' class="d-block w-100 img-fluid" width:200px hight: auto></div>');
+            $('#pic_list').append('<div id="album" class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3"></div>');
+            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="d-block w-100  img-fluid" alt="' + src + '" ></div></div>');
           } else {
             $('#pic_all').append('<div class="carousel-item"><img src=' + src + ' class="d-block w-100  img-fluid" alt="..." ></div>');
-          }
+            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="d-block w-100  img-fluid" alt="' + src + '" ></div></div>')
+          };
         }
       })
     }
@@ -79,7 +85,7 @@
       color: rgb(10, 10, 10);
 
     }
-*/
+    */
     [id*="slide1"] {
       padding: .2rem;
       background-color: white;
@@ -111,8 +117,10 @@
       padding: 0.5rem;
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
+    }
 
-
+    .button {
+                  font-size: 20px;
     }
   </style>
 </head>
@@ -153,25 +161,24 @@
     <!------------------------------------Body content------------------------------------------>
     <div id="main_div" class="container-fluid " style="background-color: rgba(214, 246, 252, 0.836); ">
       <div class="row justify-content-start">
-        <div id="main_div2" class="col-3  border-end-0">
+        <div id="main_div2" class="col-lg-3 col-md-12 mb-4 mb-md-0  border-end-0">
           <!----------------------------เรียกดูfolder เก็บรูปและส้ราง เมนู---------------------------------------------->
           <div class="container-fluid">
-            <div id="list_folder_pic" class="d-grid gap-2">
+            <div id="list_folder_pic" class="d-grid gap-2 col-12 mx-auto">
             </div>
           </div>
         </div>
         <!---------------------------Slide Show picture here ---------------------------------------->
-        <div id="main_div3" class="col-9 border-start-0 " style="background-color:#ccf2ff">
+        <div id="main_div3" class="col-lg-9 col-md-12 mb-4 mb-md-0  border-start-0 " style="background-color:#ccf2ff">
           <div class="row justify-content-center" style="text-align: center;">
             <div class="container" id="text_header">
-              <p class="text-center text-lg fw-bold fs-4 text-primary">
-                ภาพกิจกรรมโรงพยาบาลรัตนวาปี
-              </p>
-              <div class="container" id="name_allumb"></div>
+              <p class="text-center text-lg fw-bold fs-5 text-primary">
+                ภาพกิจกรรมโรงพยาบาลรัตนวาปี </p>
+              <p id="name_allumb"></p>
             </div>
           </div>
           <div class="row justify-content-center">
-            <div id="slide1" class="col-9 ">
+            <div id="slide1" class="col-lg-9 col-md-12 mb-4 mb-md-0 ">
               <!---------------------------  photo slide  ------------------------------------->
 
               <div id="test1" style="text-align: center;">
@@ -191,6 +198,18 @@
               </div>
             </div>
           </div>
+
+          <!--------------สร้างตารางแสดงรูปภาพ--------------------------------------------------------->
+          <div class="container " style="text-align: center; ">
+            <div id="pic_list" class="container">
+
+              <div id="album" class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
+                <!--<div class="col"><div class="p-5 border bg-light">Row column</div></div> -->
+
+              </div>
+              <br>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -208,7 +227,6 @@
           <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
             <h5>ติดต่อ</h5>
             <p>
-              ช่องทางการรับเรื่องร้องเรื่อง <br>
               1.Email โรงพยาบาล : <a href="mailto:Rattanawapi.hospital@gmail.com ">Rattanawapi.hospital@gmail.com </a><br>
               2.Facebook โรงพยาบาล :<a target="_blank" href="https://www.facebook.com/rtnhospital/">https://www.facebook.com/rtnhospital/</a><br>
               3.โทร. : <a href="tel:042-414824">042-414824</a> <br>
