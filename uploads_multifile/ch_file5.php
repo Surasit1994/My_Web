@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>How to upload Multiple Image files with jQuery AJAX and PHP</title>
+  <title>คลังรูปภาพ กิจกรรมโรงพยาบาลรัตนวาปี</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   <script type="text/javascript" src='jquery-3.4.1.min.js'></script>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
-
   <script>
     //-----------------ฟังค์ชั่นดึงข้อม฿ล part file จาก server--------------------
     function get1_part(data_part1) {
@@ -22,9 +20,7 @@
         dataType: 'json', //หรือ json หรือ xml
       });
     }
-
     function load_menu(part_recieve, part_first1) {
-
       response = part_recieve
       //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
       for (var index = 0; index < response.length; index++) {
@@ -41,16 +37,13 @@
         load_img(part_first + '/' + part_dir[0]); //----------ส่งค่า part เริ่มต้น show รูปภาพ ในการโหลดหน้าเว็บครั้งแรกที่่ folder 1
       });
     }
-
     function load_img(part_dir) {
-
       var getfile_name = get1_part(part_dir);
       //alert(part_dir);
       var state_pic = 0;
       getfile_name.done(function(file_name) {
         for (var index = 0; index < file_name.length; index++) {
           var src = part_dir + '/' + file_name[index];
-
           if (state_pic == 0) {
             state_pic = 1
             $('#pic_all').remove();
@@ -60,10 +53,10 @@
             $('#carouselExampleControlsNoTouching').append('<div id="pic_all" class="carousel-inner"></div>');
             $('#pic_all').append('<div id="pic1" class="carousel-item active"><img src=' + src + ' class="d-block w-100 img-fluid" width:200px hight: auto></div>');
             $('#pic_list').append('<div id="album" class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3"></div>');
-            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="d-block w-100  img-fluid" alt="' + src + '" ></div></div>');
+            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="rounded d-block w-100  img-fluid" alt="' + src + '" ></div></div>');
           } else {
             $('#pic_all').append('<div class="carousel-item"><img src=' + src + ' class="d-block w-100  img-fluid" alt="..." ></div>');
-            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="d-block w-100  img-fluid" alt="' + src + '" ></div></div>')
+            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="rounded d-block w-100  img-fluid" alt="' + src + '" ></div></div>')
           };
         }
       })
@@ -76,14 +69,12 @@
       /*background-color: rgba(225, 242, 245, 0.836);*/
 
     }
-
     /*
     [class*="col"] {
       padding: 1rem;
       background-color: #f5d3ff;
       border: 2px solid #fff;
       color: rgb(10, 10, 10);
-
     }
     */
     [id*="slide1"] {
@@ -91,43 +82,29 @@
       background-color: white;
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
-
     }
-
     [id*="main_div"] {
-
-
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
-
-
     }
-
     [id*="main_div2"],
     [id*="main_div3"] {
       padding: 0.5rem;
 
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
-
-
     }
-
     [id*="foot"] {
       padding: 0.5rem;
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
     }
-
     .button {
                   font-size: 20px;
     }
   </style>
 </head>
-
-
 <body>
-
   <div class="container-lg">
     <!---------------------------Image first page ----------------------------------------->
     <img src="./images/head-index.png" class="img-fluid" alt="Welcome">
@@ -180,9 +157,7 @@
           <div class="row justify-content-center">
             <div id="slide1" class="col-lg-9 col-md-12 mb-4 mb-md-0 ">
               <!---------------------------  photo slide  ------------------------------------->
-
               <div id="test1" style="text-align: center;">
-
                 <div id="carouselExampleControlsNoTouching" class="carousel slide border border-primary" data-bs-touch="false" data-bs-interval="false">
                   <!---------------div สำหรับ ใส่รูป ---------------------------------------->
                   <div id="pic_all" class="carousel-inner"></div>
@@ -198,7 +173,6 @@
               </div>
             </div>
           </div>
-
           <!--------------สร้างตารางแสดงรูปภาพ--------------------------------------------------------->
           <div class="container " style="text-align: center; ">
             <div id="pic_list" class="container">
@@ -213,9 +187,7 @@
         </div>
       </div>
     </div>
-
     <!-----------------------------End----Body content------------------------------------------>
-
     <!----------------------Footer-------------------------------------------------------------->
     <!-- Footer -->
     <footer class=" text-center text-lg-start">
@@ -250,8 +222,6 @@
     </footer>
     <!-- Footer -->
     <!--------------------END--Footer----------------------------------------------------------->
-
   </div>
 </body>
-
 </html>
