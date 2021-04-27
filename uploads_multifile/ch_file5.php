@@ -176,10 +176,8 @@
           <!--------------สร้างตารางแสดงรูปภาพ--------------------------------------------------------->
           <div class="container " style="text-align: center; ">
             <div id="pic_list" class="container">
-
               <div id="album" class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
                 <!--<div class="col"><div class="p-5 border bg-light">Row column</div></div> -->
-
               </div>
               <br>
             </div>
