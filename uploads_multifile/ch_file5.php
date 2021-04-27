@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>คลังรูปภาพ กิจกรรมโรงพยาบาลรัตนวาปี</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
@@ -20,6 +21,7 @@
         dataType: 'json', //หรือ json หรือ xml
       });
     }
+
     function load_menu(part_recieve, part_first1) {
       response = part_recieve
       //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
@@ -37,30 +39,75 @@
         load_img(part_first + '/' + part_dir[0]); //----------ส่งค่า part เริ่มต้น show รูปภาพ ในการโหลดหน้าเว็บครั้งแรกที่่ folder 1
       });
     }
+
+  //  function load_modal_show(test1) {
+      //alert(test1);
+  //    document.getElementById("pic_modal1").src = test1;
+  //    $(document).ready(function() {
+  //      $("#Modal_pic").modal("show");
+  //    });
+  //  }
+
+    function load_modal_show(test1) {
+      //alert(test1);
+      document.getElementById("pic_modal1").src = test1;
+      $(document).ready(function() {
+        $("#Modal_pic").modal("show");
+      });
+    }
+
+    //-------------สร้างฟังค์ชั่นสำหรับโหลดรูปเข้า Modal  ----------------------------//
+    function load_img_2(part_dir) {
+      var getfile_name = get1_part(part_dir);
+      //alert(part_dir);
+      var state_pic = 0;
+      getfile_name.done(function(file_name) {
+        for (var index = 0; index < file_name.length; index++) {
+          var src1 = part_dir + '/' + file_name[index];
+          if (state_pic == 0) {
+            state_pic = 1
+            $('#pic_all2').remove();
+            $('#carousel_ControlsNoTouching_model').append('<div id="pic_all" class="carousel-inner"></div>');
+            $('#pic_all2').append('<div class="carousel-item active"><img id="'+file_name[index]+'" src=' + src1 + ' class="d-block w-100 img-fluid" width:200px hight: auto></div>');
+            //$('#pic_all2').append('<div class="carousel-item active"><img src=' + src1 + ' class="d-block w-100 img-fluid" width:200px hight: auto></div>');
+          } else {
+            $('#pic_all2').append('<div class="carousel-item"><img id="'+file_name[index]+'" src=' + src1 + ' class="d-block w-100  img-fluid" alt="..." ></div>');
+            //$('#pic_all2').append('<div class="carousel-item"><img src=' + src1 + ' class="d-block w-100  img-fluid" alt="..." ></div>');
+          };
+        }
+      })
+    }
+
+
     function load_img(part_dir) {
       var getfile_name = get1_part(part_dir);
       //alert(part_dir);
       var state_pic = 0;
       getfile_name.done(function(file_name) {
         for (var index = 0; index < file_name.length; index++) {
-          var src = part_dir + '/' + file_name[index];
+          var src1 = part_dir + '/' + file_name[index];
           if (state_pic == 0) {
             state_pic = 1
             $('#pic_all').remove();
             $('#name_allumb').remove();
             $('#album').remove();
-            $('#text_header').append('<div class="container" id = "name_allumb"><p class="text-center text-lg fw-bold fs-6 text-primary" >' + part_dir.substr(8) + '</p></div>');
+            $('#text_header').append('<div class="container" id = "name_allumb"><p class="text-center text-lg fw-bold fs-6 text-primary" >ภาพกิจกรรมโรงพยาบาลรัตนวาปี / ' + part_dir.substr(8) + '</p></div>');
             $('#carouselExampleControlsNoTouching').append('<div id="pic_all" class="carousel-inner"></div>');
-            $('#pic_all').append('<div id="pic1" class="carousel-item active"><img src=' + src + ' class="d-block w-100 img-fluid" width:200px hight: auto></div>');
+            $('#pic_all').append('<div id="pic1" class="carousel-item active"><img src=' + src1 + ' class="d-block w-100 img-fluid" width:200px hight: auto></div>');
             $('#pic_list').append('<div id="album" class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3"></div>');
-            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="rounded d-block w-100  img-fluid" alt="' + src + '" ></div></div>');
+            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img type="button" onclick="load_modal_show(this.alt)" src=' + src1 + ' class="rounded d-block w-100  img-fluid" alt="' + src1 + '" ></div></div>');
           } else {
-            $('#pic_all').append('<div class="carousel-item"><img src=' + src + ' class="d-block w-100  img-fluid" alt="..." ></div>');
-            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="rounded d-block w-100  img-fluid" alt="' + src + '" ></div></div>')
+            $('#pic_all').append('<div class="carousel-item"><img src=' + src1 + ' class="d-block w-100  img-fluid" alt="..." ></div>');
+            $('#album').append('<div class="col"><div class="p-1 border bg-light"><img type="button" onclick="load_modal_show(this.alt)" src=' + src1 + ' class="rounded d-block w-100  img-fluid" alt="' + src1 + '" ></div></div>');
+            //$('#album').append('<div class="col"><div class="p-1 border bg-light"><img type="button" data-bs-toggle="modal" data-bs-target="#Modal_pic" src=' + src + ' class="rounded d-block w-100  img-fluid" alt="' + src + '" ></div></div>');
+            //$('#album').append('<div class="col"><div class="p-1 border bg-light"><img src=' + src + ' class="rounded d-block w-100  img-fluid" alt="' + src + '" ></div></div>')
           };
         }
       })
     }
+
+
+
     window.onload = first_load_all();
   </script>
   <style type="text/css">
@@ -69,6 +116,7 @@
       /*background-color: rgba(225, 242, 245, 0.836);*/
 
     }
+
     /*
     [class*="col"] {
       padding: 1rem;
@@ -83,10 +131,12 @@
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
     }
+
     [id*="main_div"] {
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
     }
+
     [id*="main_div2"],
     [id*="main_div3"] {
       padding: 0.5rem;
@@ -94,22 +144,31 @@
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
     }
+
     [id*="foot"] {
       padding: 0.5rem;
       border: 2px solid #99d6ff;
       color: rgb(10, 10, 10);
     }
+
     .button {
-                  font-size: 20px;
+      font-size: 20px;
+    }
+
+    .size_img {
+      width: "800";
+      height: auto;
     }
   </style>
+
 </head>
+
 <body>
   <div class="container-lg">
     <!---------------------------Image first page ----------------------------------------->
     <img src="./images/head-index.png" class="img-fluid" alt="Welcome">
     <!---------------------------Menu navbar-------------------------------->
-    <nav class="navbar navbar-expand-lg navbar-dark " style="background-color:#0099ff">
+    <nav id="top_page" class="navbar navbar-expand-lg navbar-dark " style="background-color:#0099ff">
       <div class="container-fluid">
         <a class="navbar-brand" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
             <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
@@ -126,12 +185,13 @@
               <a class="nav-link" href="#">Link</a>
             </li> -->
           </ul>
-          <!-- 
+
+          <!--
                        <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                             <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>> 
-                    -->
+                             <button class="btn btn-outline-primary" type="submit">Search</button>
+                        </form>
+          -->
         </div>
       </div>
     </nav>
@@ -148,14 +208,13 @@
         <!---------------------------Slide Show picture here ---------------------------------------->
         <div id="main_div3" class="col-lg-9 col-md-12 mb-4 mb-md-0  border-start-0 " style="background-color:#ccf2ff">
           <div class="row justify-content-center" style="text-align: center;">
+            <!-------- ใส่ชื่อ กิจกรรม ------------------------------------------------------------------>
             <div class="container" id="text_header">
-              <p class="text-center text-lg fw-bold fs-5 text-primary">
-                ภาพกิจกรรมโรงพยาบาลรัตนวาปี </p>
-              <p id="name_allumb"></p>
+              <p id="name_allumb" class="text-center text-lg fw-bold fs-5 text-primary"> </p>
             </div>
           </div>
           <div class="row justify-content-center">
-            <div id="slide1" class="col-lg-9 col-md-12 mb-4 mb-md-0 ">
+            <div id="slide1" class="col-lg-11 col-md-12 mb-4 mb-md-0 ">
               <!---------------------------  photo slide  ------------------------------------->
               <div id="test1" style="text-align: center;">
                 <div id="carouselExampleControlsNoTouching" class="carousel slide border border-primary" data-bs-touch="false" data-bs-interval="false">
@@ -174,16 +233,63 @@
             </div>
           </div>
           <!--------------สร้างตารางแสดงรูปภาพ--------------------------------------------------------->
-          <div class="container " style="text-align: center; ">
+          <div class="col-lg-11 col-md-12 mb-4 mb-md-0 " style="text-align: center; ">
             <div id="pic_list" class="container">
               <div id="album" class="row row-cols-2 row-cols-lg-3 g-2 g-lg-3">
                 <!--<div class="col"><div class="p-5 border bg-light">Row column</div></div> -->
               </div>
               <br>
             </div>
+            <p>
+              <a class="btn btn-primary" href="#top_page">Go to the top <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z" />
+                </svg></a>
+            </p>
           </div>
         </div>
       </div>
+      <!-- Modal -->
+      <div class="modal fade" id="Modal_pic" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-lg-down modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">ภาพกิจกรรมโรงพยาบาลรัตนวาปี</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+              <div class="container-fluid  ">
+                <!---------------------------  photo slide  ------------------------------------->
+                <div style="text-align: center;">
+                  <div id="carousel_ControlsNoTouching_model" class="carousel slide border border-primary" data-bs-touch="false" data-bs-interval="false">
+                    <!---------------div สำหรับ ใส่รูป ---------------------------------------->
+                    <div id="pic_all2" class="carousel-inner">
+                      <div class="carousel-item active"><img id="pic_modal1" src="uploads/pic_1/img_bg_hp1.jpg" class="d-block w-100 img-fluid"></div>
+                    </div>
+                      <button class="carousel-control-prev" type="button" data-bs-target="#carousel_ControlsNoTouching_model" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carousel_ControlsNoTouching_model" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button> 
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-primary" href="uploads/pic_1/img_bg_hp1.jpg" download="img_bg_hp1.jpg">Download</a>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
     </div>
     <!-----------------------------End----Body content------------------------------------------>
     <!----------------------Footer-------------------------------------------------------------->
@@ -222,4 +328,5 @@
     <!--------------------END--Footer----------------------------------------------------------->
   </div>
 </body>
+
 </html>
