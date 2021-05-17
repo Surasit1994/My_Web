@@ -1,0 +1,4 @@
+คำสั่งเปลี่ยนชื่อไฟล์ใน cmd 
+--แก้ไข file name ให้เหมือนต้นทาง ที่ตัวแปล rtnh
+--กำหนดชื่อใหม่ ที่ NewName
+for ($num = 1 ; $num -le 51 ; $num++){Rename-Item -Path "rtnh ($num)" -NewName "rtnh$num.jpg"}
