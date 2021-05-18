@@ -36,48 +36,45 @@
         load_img(part_first + '/' + '0_Welcome_0'); //----------ส่งค่า part เริ่มต้น show รูปภาพ ในการโหลดหน้าเว็บครั้งแรกที่่ folder 1
       });
     }
-    function load_menu(part_recieve, part_first1) {
-      response = part_recieve
-      //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
 
-      for (var index = Previous_count_menu; ((index < menu_count_photo) & (index < part_first1.length)); index++) {
-        var src = response[index];
-        $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary " value=' + part_first1 + '/' + src + ' onclick="load_img(this.value)">' + src + '</button>');
 
-      }
-    }
-
-    var No_of_menu_page = 2;
+    var No_of_menu_page = 15;//-----------------------จำนวนเมนูที่จะแสดงใน 1 หน้า --------------------//
     var menu_page_state_active = 1; //-----------------ตัวแปรสำหรับเก็บค่าสถานะว่าขณะนี้อยู่หน้าที่ เท่าไหร่ -----------------------------//
     var Previous_menu_page_state_active = 1;//---------------//
     var menu_count_photo = menu_page_state_active * No_of_menu_page; //-----------ตัวแปรกำหนดค่าตำแหน่งรูปสุดท้ายที่จะแสดงในหน้านี้-------------//
     var Previous_count_menu = (menu_page_state_active - 1) * No_of_menu_page; //---ตัวแปรกำหนดค่าเริ่มต้นของตำแหน่งรูปที่จะนำมาแสดง------//
     var count_page_menu = 1;
-
-    var No_of_menu_page_no = 2; //-------จำนวนเลขหน้าที่จะให้แสดงใน 1 บรรทัด ------------------//
+    var No_of_menu_page_no = 10; //-------จำนวนเลขหน้าที่จะให้แสดงสูงสุดใน 1 บรรทัด ------------------//
     var menu_page_state_active = 1; //---------สถานะ active ของเลขหน้า---------------------//
+    function load_menu(part_recieve, part_first1) {
+      response = part_recieve
+      //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
+      for (var index = Previous_count_menu; ((index < No_of_menu_page) & (index < response.length)); index++) {
+        var src = response[index];
+        $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary " value=' + part_first1 + '/' + src + ' onclick="load_img(this.value)">' + src + '</button>');
+
+      }
+    }
     function create_menu_page_No(file_name) {
       $('#list_menu_page_no').remove();
 
 
 
       if (file_name.length > No_of_menu_page) {//---ตรวจสอบจำนวนไฟล์ว่ามีขนาดมากกว่าที่กำหนดไว้หรือไม่---ถ้ามากกว่าแสดงว่ามีมากกว่า 1 หน้า------//
-        var count1 = 0;
-        for (var j = 1; (j <= ((file_name.length / No_of_menu_page_no) | 0)); j++) {
+        $('#div_page_No_menu').append('<nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
+        for (var j = 1; (j <= (Math.ceil((file_name.length / No_of_menu_page)/No_of_menu_page_no ))); j++) {
           console.log("j : " + j);
           console.log(file_name.length + "/ " + No_of_menu_page_no + ": " + ((file_name.length / No_of_menu_page_no) | 0));
+          $('#list_menu_page_no').append('<ul class="pagination pagination-sm justify-content-center" id="menu_page_no' + j + '"></ul>');
+          for (var count = 1; (count <= No_of_menu_page_no)&(count_page_menu<=file_name.length)&(count<=(Math.ceil(file_name.length/No_of_menu_page))); count++) {
 
-          $('#div_page_No_menu').append('<nav id="list_menu_page_no' +j+ '" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
-          $('#list_menu_page_no' +j+ '').append('<ul class="pagination pagination-sm" id="menu_page_no"></ul>');
-          for (var count = 1; count <= 2; count++) {
-            
-            console.log("file_name.length / No_of_menu_page : "+((file_name.length / No_of_menu_page)|0));
+            console.log("file_name.length / No_of_menu_page : " + ((file_name.length / No_of_menu_page) | 0) + j);
             if (menu_page_state_active == 1) {
-              $('#menu_page_no').append('<li class="page-item active" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_page_pic(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
+              $('#menu_page_no' + j + '').append('<li class="page-item active" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_page_pic(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
               menu_page_state_active = 0;
             } else {
-              $('#menu_page_no').append('<li class="page-item" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_page_pic(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
-              count1 = count;
+              $('#menu_page_no' + j + '').append('<li class="page-item" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_page_pic(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
+
             }
             /* if (file_name.length % No_of_menu_page != 0) {
                $('#div_page_No_menu').append('<nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
@@ -86,14 +83,14 @@
               } 
             */
             count_page_menu += 1;
-          } 
+          }
         }
       }
       else {//-------ถ้ามีขนาดน้อยกว่า แสดงว่ามี มีหน้าเดียว---------//
         //$('#menu_page_no').append(' < li class= "page-item active" id = "p1" > <button class="page-link" onclick="load_page_pic(this.value)" value=1 > 1</button ></li > ');
         console.log("เข้าสู่ else จำนวน file น้อยกว่า ที่กำหนด");
-          $('#div_page_No_menu').append('<nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
-        $('#list_menu_page_no').append('<ul class="pagination pagination-sm" id="menu_page_no"></ul>');
+        $('#div_page_No_menu').append('<nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
+        $('#list_menu_page_no').append('<ul class="pagination pagination-sm justify-content-center" id="menu_page_no"></ul>');
         $('#menu_page_no').append('<li class="page-item active" id="m' + count_page_menu + '"><button class="page-link"  onclick="" value=' + count_page_menu + '>' + (count_page_menu) + '</button></li>');
       }
 
