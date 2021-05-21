@@ -32,6 +32,7 @@ for($index = 0;$index < $countfiles;$index++){
             // Upload file
     		if(move_uploaded_file($_FILES['files']['tmp_name'][$index],$path)){
     			$files_arr[] = $path;
+				
     		}
         }
     }

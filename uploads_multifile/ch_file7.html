@@ -24,8 +24,6 @@
         dataType: 'json', //หรือ json หรือ xml
       });
     }
-
-
     //--------------โหลดเมนู โฟล์เดอร์มาแสดง-------------------------
     function first_load_all() {
       var part_first = 'uploads'
@@ -36,9 +34,7 @@
         load_img(part_first + '/' + '0_Welcome_0'); //----------ส่งค่า part เริ่มต้น show รูปภาพ ในการโหลดหน้าเว็บครั้งแรกที่่ folder 1
       });
     }
-
-
-    var No_of_menu_page = 15;//-----------------------จำนวนเมนูที่จะแสดงใน 1 หน้า --------------------//
+    var No_of_menu_page = 5;//-----------------------จำนวนเมนูที่จะแสดงใน 1 หน้า --------------------//
     var menu_page_state_active = 1; //-----------------ตัวแปรสำหรับเก็บค่าสถานะว่าขณะนี้อยู่หน้าที่ เท่าไหร่ -----------------------------//
     var Previous_menu_page_state_active = 1;//---------------//
     var menu_count_photo = menu_page_state_active * No_of_menu_page; //-----------ตัวแปรกำหนดค่าตำแหน่งรูปสุดท้ายที่จะแสดงในหน้านี้-------------//
@@ -46,35 +42,57 @@
     var count_page_menu = 1;
     var No_of_menu_page_no = 10; //-------จำนวนเลขหน้าที่จะให้แสดงสูงสุดใน 1 บรรทัด ------------------//
     var menu_page_state_active = 1; //---------สถานะ active ของเลขหน้า---------------------//
+    var item_menu;
     function load_menu(part_recieve, part_first1) {
-      response = part_recieve
+      var response = part_recieve;
+      item_menu = part_recieve;
+
       //------------ให้โหลดฟังค์ชั่นนี้ตอนเริ่มต้นเท่านั่้น------------------------
       for (var index = Previous_count_menu; ((index < No_of_menu_page) & (index < response.length)); index++) {
         var src = response[index];
         $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary " value=' + part_first1 + '/' + src + ' onclick="load_img(this.value)">' + src + '</button>');
-
+      }
+    }
+    function update_page_menu_status(active_page_no) {//--------update status value------//
+      active_page_no = parseInt(active_page_no);
+      menu_page_state_active = active_page_no; //-----------------------------1-----------------------------------------------//
+      menu_count_photo = menu_page_state_active * No_of_menu_page; //-------------------2-----------------------------------------------//
+      Previous_count_menu = (menu_page_state_active - 1) * No_of_menu_page;//-----1,2 อัพเดทค่าตัวแปลเพื่อโหลดรูปมาแสดงในถูกหน้า--------//
+      console.log("updated active_page_no : " + active_page_no + " --> menu_count_photo : " + menu_count_photo + " --> Previous_count_menu : " + Previous_count_menu);
+    }
+    function load_item_menu(page_no_menu) {
+      update_page_menu_status(page_no_menu);
+      document.getElementById('m' + page_no_menu.toString()).classList.add('active');
+      document.getElementById('m' + Previous_menu_page_state_active.toString()).classList.remove('active');
+      console.log("ก่อนอัพเดจ Previous_menu_page_state_active : " + Previous_menu_page_state_active + typeof (Previous_menu_page_state_active));
+      Previous_menu_page_state_active = parseInt(page_no_menu);
+      console.log("หลังอัพเดจ Previous_menu_page_state_active : " + Previous_menu_page_state_active + typeof (Previous_menu_page_state_active));
+      $('#list_folder_pic').remove();
+      $('#show_menu').append('<div id="list_folder_pic" class="d-grid gap-2 col-12 mx-auto"></div>');
+      console.log(item_menu[0]);
+      console.log("Previous_count_menu : " + Previous_count_menu + " --> No_of_menu_page : " + No_of_menu_page + " --> item_menu.length : " + item_menu.length);
+      var i = 0;
+      for (var index = Previous_count_menu; ((i < No_of_menu_page) & (index < item_menu.length)); index++) {
+        var src = item_menu[index];
+        $('#list_folder_pic').append('<button class="btn btn-sm btn-outline-primary " value=uploads/' + src + ' onclick="load_img(this.value)">' + src + '</button>');
+        i++;
       }
     }
     function create_menu_page_No(file_name) {
       $('#list_menu_page_no').remove();
-
-
-
       if (file_name.length > No_of_menu_page) {//---ตรวจสอบจำนวนไฟล์ว่ามีขนาดมากกว่าที่กำหนดไว้หรือไม่---ถ้ามากกว่าแสดงว่ามีมากกว่า 1 หน้า------//
         $('#div_page_No_menu').append('<nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
-        for (var j = 1; (j <= (Math.ceil((file_name.length / No_of_menu_page)/No_of_menu_page_no ))); j++) {
+        for (var j = 1; (j <= (Math.ceil((file_name.length / No_of_menu_page) / No_of_menu_page_no))); j++) {
           console.log("j : " + j);
           console.log(file_name.length + "/ " + No_of_menu_page_no + ": " + ((file_name.length / No_of_menu_page_no) | 0));
           $('#list_menu_page_no').append('<ul class="pagination pagination-sm justify-content-center" id="menu_page_no' + j + '"></ul>');
-          for (var count = 1; (count <= No_of_menu_page_no)&(count_page_menu<=file_name.length)&(count<=(Math.ceil(file_name.length/No_of_menu_page))); count++) {
-
+          for (var count = 1; (count <= No_of_menu_page_no) & (count_page_menu <= file_name.length) & (count <= (Math.ceil(file_name.length / No_of_menu_page))); count++) {
             console.log("file_name.length / No_of_menu_page : " + ((file_name.length / No_of_menu_page) | 0) + j);
             if (menu_page_state_active == 1) {
-              $('#menu_page_no' + j + '').append('<li class="page-item active" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_page_pic(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
+              $('#menu_page_no' + j + '').append('<li class="page-item active" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_item_menu(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
               menu_page_state_active = 0;
             } else {
-              $('#menu_page_no' + j + '').append('<li class="page-item" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_page_pic(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
-
+              $('#menu_page_no' + j + '').append('<li class="page-item" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_item_menu(this.value)" value=' + count_page_menu + '>' + count_page_menu + '</button></li>');
             }
             /* if (file_name.length % No_of_menu_page != 0) {
                $('#div_page_No_menu').append('<nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
@@ -91,12 +109,10 @@
         console.log("เข้าสู่ else จำนวน file น้อยกว่า ที่กำหนด");
         $('#div_page_No_menu').append('<nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;"></nav>')
         $('#list_menu_page_no').append('<ul class="pagination pagination-sm justify-content-center" id="menu_page_no"></ul>');
-        $('#menu_page_no').append('<li class="page-item active" id="m' + count_page_menu + '"><button class="page-link"  onclick="" value=' + count_page_menu + '>' + (count_page_menu) + '</button></li>');
+        $('#menu_page_no').append('<li class="page-item active" id="m' + count_page_menu + '"><button class="page-link"  onclick="load_item_menu(this.value)" value=' + count_page_menu + '>' + (count_page_menu) + '</button></li>');
       }
 
     }
-
-
     function load_modal_show(part_pic, pic_name) {
       load_img_2(pic_name)
     }
@@ -236,14 +252,7 @@
 
     }
 
-    /*
-    [class*="col"] {
-      padding: 1rem;
-      background-color: #f5d3ff;
-      border: 2px solid #fff;
-      color: rgb(10, 10, 10);
-    }
-    */
+    
     [id*="slide1"] {
       padding: .2rem;
       background-color: white;
@@ -279,11 +288,9 @@
       height: auto;
     }
   </style>
-
 </head>
 
 <body>
-
   <div class="container-lg">
     <!---------------------------Image first page ----------------------------------------->
     <img src="./images/head-index.png" class="img-fluid" alt="Welcome">
@@ -363,7 +370,8 @@
           <!----------------------------เรียกดูfolder เก็บรูปและส้ราง เมนู---------------------------------------------->
           <div class="container-fluid">
             <!---------------Menu here------------------->
-            <div id="list_folder_pic" class="d-grid gap-2 col-12 mx-auto">
+            <div class="container-fluid" id="show_menu">
+              <div id="list_folder_pic" class="d-grid gap-2 col-12 mx-auto"></div>
             </div>
             <div class="row justify-content-center" style="text-align: center;">
               <div class="container">
@@ -374,9 +382,7 @@
                       <nav id="list_menu_page_no" aria-label="Page navigation example" style="margin-top: 10px;">
                         <ul class="pagination pagination-sm" id="menu_page_no">
                           <!------------------code จะเพิ่มหน้าให้อัตโนมัติ---------------------------->
-
                         </ul>
-
                       </nav>
                     </div>
                   </div>
@@ -416,7 +422,6 @@
               </div>
             </div>
           </div>
-
           <!--------------สร้างตารางแสดงรูปภาพ--------------------------------------------------------->
           <div class="col-lg-12 col-md-12 mb-4 mb-md-0 " style="text-align: center; ">
             <div id="pic_list" class="container">
@@ -440,13 +445,11 @@
                     <div class="d-flex justify-content-center  mb-3">
                       <nav id="list_page_no" aria-label="Page navigation example" style="margin-top: 10px;">
                         <ul class="pagination" id="page_no">
-
                           <!-- 
                         <li class="page-item"><a class="page-link" href="#">1</a></li>
                         <li class="page-item"><a class="page-link" href="#">2</a></li>
                         <li class="page-item"><a class="page-link" href="#">3</a></li>
                        -->
-
                         </ul>
                       </nav>
                     </div>

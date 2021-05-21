@@ -1,0 +1,17 @@
+{
+  "name": "uploads_multifile",
+  "version": "1.0.0",
+  "description": "Author: Yogesh singh\r Author URL: https://makitweb.com/\r Author Email: makitweb@gmail.com\r Tutorial Link: https://makitweb.com/how-to-upload-multiple-image-files-with-jquery-ajax-and-php/",
+  "main": "jquery-3.4.1.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "canvas-compress": "^1.1.5",
+    "compressorjs": "^1.0.7"
+  }
+}
