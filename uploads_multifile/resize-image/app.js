@@ -1,9 +1,8 @@
 
+
+
 function process() {
-
-
-
-    if (!document.querySelector("#upload").files[0]) return;
+  if (!document.querySelector("#upload").files[0]) return;
     $("#loadingmessage").removeClass("collapse");
     for (let index = 0; index < (document.querySelector("#upload").files).length; index++) {
       const file = document.querySelector("#upload").files[index];
@@ -47,22 +46,4 @@ function process() {
     $('#upload').val('');
   }
   
-  
-  /*
-  $.ajax({
-    type: "POST",
-    url: 'upload65.php',
-    dataType: 'text',
-    data: {
-      base64data: images_array1
-    },
-    beforeSend: function () {
-      $("#loadingmessage").removeClass("collapse");
-    },
-    success: function (response) {
-      $('#loadingmessage').addClass("collapse");
-      $('#upload').val('');
-      images_array1 = [];
-    }
-  });
-  */
+ 
