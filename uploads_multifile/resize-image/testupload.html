@@ -20,126 +20,7 @@
         }
     </style>
     <script type="text/javascript">
-        var data_folder_name_old;
-        //-----------------ฟังค์ชั่นดึงข้อม฿ล part file จาก server--------------------
-        function get1_part(data_part1) {
-            return $.ajax({
-                url: 'call_dir3.php',
-                type: 'get', //หรือ post (ค่าเริ่มต้นเป็นแบบ get)
-                data: {
-                    index_link: data_part1
-                },
-                dataType: 'json', //หรือ json หรือ xml
-            });
-        }
-        //--------------โหลดเมนู โฟล์เดอร์มาแสดงใน dropdown-------------------------
-        function create_option_menu(folder_name) {
-            var x = document.createElement("OPTION");
-            x.setAttribute("value", folder_name);
-            var t = document.createTextNode(folder_name);
-            x.appendChild(t);
-            document.getElementById("old_name_activity").appendChild(x);
-        }
-        function first_load_all() {
-            // alert('first load');
-            var part_first = 'uploads';
-            var promise = get1_part(part_first);
-            promise.done(function (part_dir) {
-                data_folder_name_old = part_dir;
 
-                for (i in data_folder_name_old) { //----------------เพิ่มรายการเข้าไปใน dropdown ----------//
-                    if (data_folder_name_old[i] == '0_Welcome_0') continue;
-                    create_option_menu(data_folder_name_old[i]);
-                }
-
-
-            });
-        }
-        window.onload = first_load_all();
-        function myFunction() { //------------------เปิดปิด input text box เมื่่อมีการกด checked------------/
-            if (document.getElementById("new_activity").checked == false) {
-                document.getElementById("name_activity").disabled = true;
-                document.getElementById("check_name_btn").disabled = true;
-                document.getElementById("old_name_activity").disabled = false;
-                document.getElementById("input_file").disabled = false;
-                document.getElementById('name_activity').value = ''
-                //alert('unchecked!');
-            } else {
-                document.getElementById("name_activity").disabled = false;
-                document.getElementById("check_name_btn").disabled = false;
-                document.getElementById("old_name_activity").disabled = true;
-                document.getElementById("input_file").disabled = true;
-                document.getElementById('name_activity').focus();
-                document.getElementById('name_activity').value = ''
-                // alert('checked');
-            }
-        }
-        var status_check_name = 'default';
-        function check_name(name) { //-------------ฟังก์ชั่นกำหนดตรวจสอบชื่อซ้ำ-----------------------//
-            console.log(name);
-            if (name == '') {
-                status_check_name = 'false';
-                document.getElementById("name_activity").style = "background : #FF625D";//-----สีแดง---//
-                document.getElementById("input_file").disabled = true;
-                document.getElementById("btn_upload").disabled = true;
-                console.log('true');
-                alert("ไม่ได้ตั้งชื่อ กรุณาตั้งชื่อใหม่หรือเลือกจาก เมนู dropdown !!!");
-                document.getElementById('name_activity').focus();
-            } else {
-                for (i in data_folder_name_old) {
-                    if ((name == data_folder_name_old[i])) {
-                        status_check_name = 'false';
-                        document.getElementById("name_activity").style = "background : #FF625D";//-----สีแดง---//
-                        console.log('true');
-                        document.getElementById("input_file").disabled = true;
-                        document.getElementById("btn_upload").disabled = true;
-                        alert("ชื่อที่กำหนด มีอยู่แล้ว กรุณาเปลี่ยนชื่อใหม่หรือเลือกจาก เมนู dropdown !!!");
-                        document.getElementById('name_activity').focus();
-                        break;
-                    }
-                    else {
-                        console.log('false');
-                        document.getElementById("name_activity").style = "background : #B5FF95";//--สีเขียว---//
-                        status_check_name = 'true';
-                        document.getElementById("input_file").disabled = false;
-                        document.getElementById("btn_upload").disabled = false;
-                    }
-                }
-            }
-        }
-
-        function check_input(data_form) {
-            console.log('enter check_input');
-            if ((status_check_name == 'default' | status_check_name == 'false') & document.getElementById("new_activity").checked == true) {
-                status_check_name = 'false';
-                document.getElementById("name_activity").style = "background : #FF625D";//-----สีแดง---//
-                alert("ชื่อที่กำหนด มีอยู่แล้ว หรือไม่ได้ตั้งชื่อ กรุณาเปลี่ยนชื่อใหม่หรือเลือกจาก เมนู dropdown !!! form check_input");
-                document.getElementById('name_activity').focus();
-
-            } else {
-                console.log("Input is normal");
-                if (status_check_name == 'true' & document.getElementById('name_activity').value != '') {
-                    var cr = create_folder(document.getElementById('name_activity').value);
-                    cr.done(function (response) {
-                        console.log('Status Create folder : ' + response);
-                    });
-                }
-                else {
-
-                }
-            }
-        }
-
-        function create_folder(folder_name) {
-            return $.ajax({
-                type: "POST",
-                url: 'create_folder.php',
-                dataType: 'text',
-                data: {
-                    name: folder_name
-                }
-            });
-        }
 
     </script>
 </head>
@@ -181,61 +62,52 @@
         </nav>
         <!------------------------------------Body content------------------------------------------>
         <div id="main_div" class="container-fluid " style="background-color: rgba(214, 246, 252, 0.836); ">
-            <input type="file" id="upload" accept=".jpg, .jpeg, .png" multiple />
-            <button onclick="process()">Process</button>
-            <button onclick="check_input()">check_input</button>
-            <div id="loadingmessage" class="collapse">
-                <button class="btn btn-primary" type="button" disabled>
-                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                    Uploading...
-                </button>
-            </div>
-            <div>
-                <img id="input" />
-            </div>
-            <div id="output">
-            </div>
-            <div id="output2">
-            </div>
+
             <script src="app.js"></script>
             <!--------------------------------------------------------------------------------------------------------->
             <div class="row justify-content-center ">
                 <div class="col-sm-12 col-lg-10 bg-light mx-auto border">
                     <div class="row justify-content-center ">
                         <!-------------------------------------form upload images---------------------------------->
-                        <form enctype="application/json" name="create_upload_image_Form"
-                            onsubmit="return check_input(this)">
-                            <div class="d-grid gap-2 col-lg-8 col-sm-12 mx-auto justify-content-center ">
-                                <p class="text-center text-lg fs-4 text-primary">อัพโหลดรูปภาพกิจกรรม</p>
-                                <div class=" form-check">
-                                    <input type="checkbox" class="form-check-input" id="new_activity"
-                                        onclick="myFunction()">
-                                    <label class="form-check-label" for="new_activity">กิจกรรมใหม่</label>
-                                </div>
-                                <input class="form-control form-control-sm" type="text" id="name_activity"
-                                    name="name_activity" maxlength="80" required disabled
-                                    onchange="check_name(this.value)">
-                                <div class="d-grid gap-2 col-3 mx-auto">
-                                    <button id="check_name_btn" class="btn btn-sm btn-success" type="button" onclick="check_name(document.getElementById('name_activity').value)" disabled>ตรววสอบชื่อ</button>
-                                </div>
-                                <div id="name_folder_help" class="form-text">
-                                    ตั้งชื่อกิจจกรมให้เข้าใจง่ายกะทัดรัด ***หมายเหตุ
-                                    (หากต้องการเว้นวรรคให้ใช้เครื่องหมายขีดล่างแทน " _ ")
-                                </div>
-                                <select id="old_name_activity" name="old_name_activity"
-                                    class="form-select form-select-sm" aria-label=".form-select-sm example" required>
-                                    <option value="">กรุณาเลือกชื่อกิจกรรม</option>
-                                </select>
-                                <input class="form-control form-control-sm" type="file" id="input_file" name="filename"
-                                    multiple required>
-                                <div class="d-grid gap-2 col-2 mx-auto">
-                                    <button class="btn btn-primary" type="submit" id="btn_upload" value='Upload'
-                                        name='upload'>อัพโหลด</button>
-                                </div>
+                        <div class="d-grid gap-2 col-lg-8 col-sm-12 mx-auto justify-content-center ">
+                            <p class="text-center text-lg fs-4 text-primary">อัพโหลดรูปภาพกิจกรรม</p>
+                            <div class=" form-check">
+                                <input type="checkbox" class="form-check-input" id="new_activity"
+                                    onclick="myFunction()">
+                                <label class="form-check-label" for="new_activity">กิจกรรมใหม่</label>
                             </div>
-                        </form>
+                            <input class="form-control form-control-sm" type="text" id="name_activity"
+                                name="name_activity" maxlength="80" required disabled onchange="check_name(this.value)">
+                            <div class="d-grid gap-2 col-3 mx-auto">
+                                <button id="check_name_btn" class="btn btn-sm btn-success" type="button"
+                                    onclick="check_name(document.getElementById('name_activity').value)"
+                                    disabled>ตรววสอบชื่อ</button>
+                            </div>
+                            <div id="name_folder_help" class="form-text">
+                                ตั้งชื่อกิจจกรมให้เข้าใจง่ายกะทัดรัด ***หมายเหตุ
+                                (หากต้องการเว้นวรรคให้ใช้เครื่องหมายขีดล่างแทน " _ ")
+                            </div>
+                            <select id="old_name_activity" name="old_name_activity" class="form-select form-select-sm"
+                                aria-label=".form-select-sm example" required>
+                                <option value="">กรุณาเลือกชื่อกิจกรรม</option>
+                            </select>
+                            <input class="form-control form-control-sm" type="file" id="input_file" name="filename"
+                                multiple required>
+                            <div class="d-grid gap-2 col-2 mx-auto">
+                                <button class="btn btn-primary" type="button" id="btn_upload" value='Upload'
+                                    name='upload' onclick="check_input()">อัพโหลด</button>
+                            </div>
+                        </div>
                     </div>
                     <br>
+                </div>
+                <div class="col-sm-12 col-lg-10 bg-light mx-auto border">
+                    <div>
+                        <img id="input" />
+                    </div>
+                    <div id="output">
+                    </div>
+                    
                 </div>
             </div>
         </div>
